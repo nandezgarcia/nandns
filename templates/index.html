@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ t.meta_title }}</title>
+<meta name="description" content="{{ t.meta_description }}">
+<link rel="canonical" href="{{ canonical }}">
+{% for l, url in alternates %}
+<link rel="alternate" hreflang="{{ l }}" href="{{ url }}">
+{% endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ alternates[0][1] }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="nandns">
+<meta property="og:title" content="{{ t.meta_title }}">
+<meta property="og:description" content="{{ t.meta_description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="https://{{ base_domain }}/static/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ t.meta_title }}">
+<meta name="twitter:description" content="{{ t.meta_description }}">
+<meta name="twitter:image" content="https://{{ base_domain }}/static/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦆</text></svg>">
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:#0f0f23;color:#e0e0e0;line-height:1.6;min-height:100vh}
+a{color:#58a6ff;text-decoration:none}
+header{background:#161b22;padding:1.5rem 1rem;text-align:center;border-bottom:1px solid #30363d}
+header h1{color:#f85149;font-size:1.8rem;margin-bottom:.25rem}
+header p{color:#8b949e;font-size:.9rem}
+.lang-switch{margin-top:.6rem;font-size:.85rem}
+.lang-switch a{color:#8b949e;margin:0 .4rem}
+.lang-switch a.active{color:#fff;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:1.5rem 1rem}
+.section{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:1.5rem;margin-bottom:1.25rem}
+.section h2{color:#f85149;font-size:1.15rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.section h3{color:#f85149;font-size:1rem;margin:1.25rem 0 .5rem}
+input,button{font-family:inherit;padding:.65rem .9rem;border-radius:6px;border:1px solid #30363d;font-size:.95rem}
+input{background:#0d1117;color:#c9d1d9;width:100%}
+input::placeholder{color:#6e7681}
+button{background:#238636;color:#fff;border-color:#238636;cursor:pointer;font-weight:600}
+button:hover{background:#2ea043}
+button:disabled{background:#21262d;color:#484f58;border-color:#30363d;cursor:not-allowed}
+button.secondary{background:#21262d;color:#c9d1d9;border-color:#30363d}
+button.secondary:hover{background:#30363d}
+button.danger{background:#da3633;border-color:#da3633}
+button.danger:hover{background:#f85149}
+button.premium{background:#b7782a;border-color:#b7782a}
+button.premium:hover{background:#d29a3f}
+button.small{padding:.35rem .7rem;font-size:.8rem}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.row input{flex:1;min-width:140px}
+.row button{width:auto}
+table{width:100%;border-collapse:collapse;margin-top:.75rem;font-size:.85rem}
+th,td{padding:.5rem .6rem;text-align:left;border-bottom:1px solid #30363d}
+th{color:#f85149;font-weight:600}
+tr:hover td{background:#161b22}
+.domain-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid #21262d;gap:.5rem;flex-wrap:wrap}
+.domain-name{font-weight:600;color:#58a6ff}
+.domain-meta{font-family:monospace;color:#8b949e;font-size:.85rem}
+.actions{display:flex;gap:.4rem}
+.hidden{display:none}
+.token-box{background:#0d1117;border:1px solid #30363d;padding:.75rem;border-radius:6px;font-family:monospace;font-size:.9rem;color:#58a6ff;margin:.5rem 0;word-break:break-all}
+.alert{padding:.75rem;border-radius:6px;margin:.5rem 0;font-size:.9rem;border:1px solid}
+.alert.ok{background:#0d1117;border-color:#238636;color:#3fb950}
+.alert.err{background:#0d1117;border-color:#da3633;color:#f85149}
+pre,code{font-family:ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace}
+pre{background:#0d1117;border:1px solid #30363d;padding:.75rem;border-radius:6px;font-size:.85rem;color:#c9d1d9;overflow-x:auto;margin:.5rem 0;white-space:pre-wrap;word-break:break-word}
+.os-tabs{display:flex;gap:.4rem;margin-bottom:.75rem;flex-wrap:wrap}
+.os-tab{background:#21262d;color:#8b949e;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:.85rem;border:1px solid #30363d}
+.os-tab.active{background:#30363d;color:#fff;border-color:#8b949e}
+.os-content{display:none}
+.os-content.active{display:block}
+.terms-box{display:flex;align-items:flex-start;gap:.6rem;background:#0d1117;border:1px solid #30363d;padding:.75rem;border-radius:6px;margin-bottom:1rem}
+.terms-box input{width:auto;margin-top:.15rem}
+.terms-box label{font-size:.85rem;color:#8b949e;line-height:1.4}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1rem}
+.stat-box{background:#0d1117;border:1px solid #30363d;padding:1rem;border-radius:8px;text-align:center}
+.stat-box .num{font-size:1.6rem;font-weight:700;color:#f85149}
+.stat-box .label{font-size:.75rem;color:#8b949e;margin-top:.25rem}
+.badge{display:inline-block;background:#f85149;color:#fff;padding:.15rem .5rem;border-radius:12px;font-size:.75rem;font-weight:600}
+.badge.premium{background:#b7782a}
+.badge.free{background:#238636}
+footer{text-align:center;padding:1.5rem;color:#484f58;font-size:.8rem}
+footer a{color:#6e7681;margin:0 .4rem}
+/* landing */
+.landing p{color:#8b949e;font-size:.95rem;margin-bottom:.75rem}
+.landing ul{color:#8b949e;font-size:.95rem;margin:.5rem 0 .75rem 1.25rem}
+.landing li{margin-bottom:.3rem}
+.compare-wrap{overflow-x:auto}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.plan-card{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:1.25rem;display:flex;flex-direction:column}
+.plan-card.featured{border-color:#b7782a}
+.plan-card h3{margin:0 0 .25rem;color:#e0e0e0}
+.plan-price{font-size:1.8rem;font-weight:700;color:#f85149;margin:.25rem 0 .75rem}
+.plan-price span{font-size:.9rem;color:#8b949e;font-weight:400}
+.plan-card ul{list-style:none;margin:0 0 1rem;flex:1}
+.plan-card li{color:#8b949e;font-size:.9rem;padding:.25rem 0;border-bottom:1px solid #21262d}
+.plan-card li::before{content:"✓ ";color:#3fb950}
+.pricing-note{color:#6e7681;font-size:.8rem;margin-top:.75rem}
+.faq-item{border-bottom:1px solid #21262d;padding:.75rem 0}
+.faq-item summary{cursor:pointer;color:#e0e0e0;font-weight:600;font-size:.95rem}
+.faq-item p{color:#8b949e;font-size:.9rem;margin-top:.5rem}
+.donate-box{text-align:center}
+@media(max-width:600px){.row{flex-direction:column}.row button{width:100%}.domain-row{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header>
+<h1>🦆 nandns</h1>
+<p>{{ t.header_tagline }}</p>
+<div class="lang-switch">
+{% for l, url in alternates %}
+<a href="{{ url }}" {% if l == lang %}class="active"{% endif %}>{{ {"es":"ES","en":"EN","zh":"中文"}[l] }}</a>
+{% endfor %}
+</div>
+</header>
+<div class="container">
+
+<!-- Login -->
+<div id="auth-section" class="section">
+<h2>{{ t.login_title }}</h2>
+<p style="color:#8b949e;font-size:.9rem;margin-bottom:1rem">{{ t.login_subtitle }}</p>
+<div class="terms-box">
+<input type="checkbox" id="terms-check" onchange="toggleLogin()">
+<label for="terms-check">{{ t.terms_label }}</label>
+</div>
+<div style="text-align:center">
+<button id="google-btn" onclick="loginGoogle()" disabled style="max-width:300px;margin:0 auto">
+<svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+{{ t.google_btn }}
+</button>
+</div>
+<div id="auth-msg"></div>
+</div>
+
+<!-- Dashboard -->
+<div id="dash-section" class="section hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+<h2 style="margin:0">{{ t.your_token }} <span id="plan-badge" class="badge free"></span></h2>
+<div>
+<button class="secondary small" onclick="logout()">{{ t.logout }}</button>
+<button class="secondary small hidden" id="admin-btn" onclick="showAdmin()">{{ t.admin_btn }}</button>
+</div>
+</div>
+<p style="color:#8b949e;font-size:.85rem;margin-top:.5rem">{{ t.token_help }}</p>
+<div class="token-box" id="token-display"></div>
+<div id="plan-info" style="margin-top:.75rem;color:#8b949e;font-size:.85rem"></div>
+<div id="plan-actions" style="margin-top:.5rem"></div>
+</div>
+
+<!-- Add domain -->
+<div id="add-section" class="section hidden">
+<h2>{{ t.add_title }} <span class="badge" id="max-badge"></span></h2>
+<p style="color:#8b949e;font-size:.85rem;margin-bottom:.75rem" id="count-text"></p>
+<div class="row">
+<input type="text" id="new-name" placeholder="{{ t.name_ph }}">
+<span style="color:#6e7681;font-weight:500">.{{ base_domain }}</span>
+</div>
+<input type="text" id="new-ip" placeholder="{{ t.ip_ph }}">
+<button onclick="addDomain()">{{ t.create_btn }}</button>
+<div id="add-msg"></div>
+<div id="premium-cta" class="hidden" style="margin-top:.75rem"></div>
+</div>
+
+<!-- List domains -->
+<div id="list-section" class="section hidden">
+<h2>{{ t.your_domains }}</h2>
+<div id="domains-list"></div>
+<div id="list-msg"></div>
+</div>
+
+<!-- API -->
+<div class="section">
+<h2>{{ t.api_title }}</h2>
+<p style="color:#8b949e;font-size:.9rem;margin-bottom:.5rem">{{ t.api_help }}</p>
+<pre id="api-code">curl "https://{{ base_domain }}/update?domains=TUSUB&amp;token=TUTOKEN&amp;ip=1.2.3.4"</pre>
+<div style="text-align:right">
+<button class="secondary small" onclick="copyText('api-code')">{{ t.copy_btn }}</button>
+</div>
+<p style="color:#8b949e;font-size:.8rem;margin-top:.5rem">{{ t.api_note|safe }}</p>
+</div>
+
+<!-- Setup -->
+<div class="section">
+<h2>{{ t.setup_title }}</h2>
+<div class="os-tabs">
+<button class="os-tab active" onclick="switchOs('win')">Windows 11</button>
+<button class="os-tab" onclick="switchOs('mac')">macOS</button>
+<button class="os-tab" onclick="switchOs('linux')">Ubuntu / Linux</button>
+</div>
+<div id="os-win" class="os-content active">
+<p style="color:#8b949e;font-size:.9rem;margin-bottom:.5rem">{{ t.win_help|safe }}</p>
+<pre id="win-code">$url="https://{{ base_domain }}/static/setup.ps1"
+iwr $url -UseBasicParsing | iex</pre>
+<div style="text-align:right">
+<button class="secondary small" onclick="copyText('win-code')">{{ t.copy_btn }}</button>
+</div>
+</div>
+<div id="os-mac" class="os-content">
+<p style="color:#8b949e;font-size:.9rem;margin-bottom:.5rem">{{ t.mac_help|safe }}</p>
+<pre id="mac-code">curl -fsSL https://{{ base_domain }}/static/setup.sh | bash -s prueba</pre>
+<div style="text-align:right">
+<button class="secondary small" onclick="copyText('mac-code')">{{ t.copy_btn }}</button>
+</div>
+</div>
+<div id="os-linux" class="os-content">
+<p style="color:#8b949e;font-size:.9rem;margin-bottom:.5rem">{{ t.linux_help|safe }}</p>
+<pre id="linux-code">curl -fsSL https://{{ base_domain }}/static/setup.sh | bash -s prueba</pre>
+<div style="text-align:right">
+<button class="secondary small" onclick="copyText('linux-code')">{{ t.copy_btn }}</button>
+</div>
+</div>
+<p style="color:#8b949e;font-size:.8rem;margin-top:.5rem">{{ t.token_note|safe }}</p>
+</div>
+
+<!-- Admin -->
+<div id="admin-section" class="section hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+<h2 style="margin:0">{{ t.admin_title }}</h2>
+<button class="secondary small" onclick="showDash()">{{ t.back_btn }}</button>
+</div>
+<div class="admin-grid">
+<div class="stat-box"><div class="num" id="stat-users">0</div><div class="label">{{ t.stat_users }}</div></div>
+<div class="stat-box"><div class="num" id="stat-domains">0</div><div class="label">{{ t.stat_domains }}</div></div>
+<div class="stat-box"><div class="num" id="stat-premium">0</div><div class="label">{{ t.stat_premium }}</div></div>
+</div>
+<h3 style="color:#f85149;margin-top:1.25rem">{{ t.all_domains }}</h3>
+<div id="admin-domains-list" style="overflow-x:auto"></div>
+</div>
+
+<!-- ======== LANDING (SEO) ======== -->
+
+<div class="section landing">
+<h2>{{ t.what_title }}</h2>
+<p>{{ t.what_p1 }}</p>
+<p>{{ t.what_p2|safe }}</p>
+<h3>{{ t.uses_title }}</h3>
+<ul>
+{% for item in t.uses_items %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+</div>
+
+<div class="section landing">
+<h2>{{ t.compare_title }}</h2>
+<p>{{ t.compare_p }}</p>
+<div class="compare-wrap">
+<table>
+<thead><tr><th>{{ t.compare_col_feature }}</th><th>nandns</th><th>DuckDNS</th><th>No-IP</th></tr></thead>
+<tbody>
+{% for row in t.compare_rows %}
+<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="section landing" id="pricing">
+<h2>{{ t.pricing_title }}</h2>
+<p>{{ t.pricing_sub }}</p>
+<div class="plans">
+<div class="plan-card">
+<h3>{{ t.free_name }}</h3>
+<div class="plan-price">{{ t.free_price }}{% if t.free_per %}<span> {{ t.free_per }}</span>{% endif %}</div>
+<ul>
+{% for f in t.free_features %}<li>{{ f }}</li>{% endfor %}
+</ul>
+<button onclick="goFree()">{{ t.free_cta }}</button>
+</div>
+<div class="plan-card featured">
+<h3>{{ t.premium_name }}</h3>
+<div class="plan-price">{{ t.premium_price }}<span> {{ t.premium_per }}</span></div>
+<ul>
+{% for f in t.premium_features %}<li>{{ f }}</li>{% endfor %}
+</ul>
+<button class="premium" onclick="goPremium()">{{ t.premium_cta }}</button>
+</div>
+</div>
+<p class="pricing-note">{{ t.pricing_note }}</p>
+</div>
+
+<div class="section landing">
+<h2>{{ t.faq_title }}</h2>
+{% for q, a in t.faq_items %}
+<details class="faq-item">
+<summary>{{ q }}</summary>
+<p>{{ a }}</p>
+</details>
+{% endfor %}
+</div>
+
+{% if kofi_url %}
+<div class="section landing donate-box">
+<h2>{{ t.donate_title }}</h2>
+<p>{{ t.donate_body }}</p>
+<a href="{{ kofi_url }}" target="_blank" rel="noopener"><button class="premium">{{ t.donate_btn }}</button></a>
+</div>
+{% endif %}
+
+</div>
+<footer>
+<p>
+<a href="{{ prefix }}/legal">{{ t.footer_legal }}</a> ·
+<a href="{{ prefix }}/privacidad">{{ t.footer_privacy }}</a> ·
+<a href="{{ prefix }}/condiciones">{{ t.footer_terms }}</a>
+{% if github_url %} · <a href="{{ github_url }}" target="_blank" rel="noopener">{{ t.footer_github }}</a>{% endif %}
+</p>
+<p style="margin-top:.4rem">nandns &mdash; {{ base_domain }} · {{ t.footer_made }}</p>
+</footer>
+
+<script>
+window.I18N = {{ i18n_json|safe }};
+const PREMIUM_ENABLED = {{ "true" if premium_enabled else "false" }};
+const FREE_MAX = {{ free_max }};
+const PREMIUM_MAX = {{ premium_max }};
+
+function t(k,vars){let s=(window.I18N&&window.I18N[k])||k;if(vars)for(const key in vars)s=s.replaceAll("{"+key+"}",vars[key]);return s;}
+
+const API="";
+let token=localStorage.getItem("token"),isAdmin=false;
+let me={plan:"free",max_domains:FREE_MAX,plan_status:"",plan_renews_at:"",premium_enabled:PREMIUM_ENABLED,has_subscription:false};
+const urlParams=new URLSearchParams(window.location.search);
+const urlToken=urlParams.get("token"),urlError=urlParams.get("error");
+if(urlToken){token=urlToken;localStorage.setItem("token",token);window.history.replaceState({},document.title,window.location.pathname);}
+if(urlError){msg("auth-msg",t("js_error_prefix")+urlError.replace(/_/g," "),false);}
+if(token)loadUser();
+
+function toggleLogin(){
+  document.getElementById("google-btn").disabled=!document.getElementById("terms-check").checked;
+}
+function loginGoogle(){
+  window.location.href="/auth/google";
+}
+function msg(id,text,ok){
+  const el=document.getElementById(id);
+  el.className="alert "+(ok?"ok":"err");
+  el.textContent=text;
+}
+function logout(){token=null;localStorage.removeItem("token");location.reload();}
+async function loadUser(){
+  const r=await fetch(API+"/api/me",{headers:{"Authorization":"Bearer "+token}});
+  if(r.status===401){logout();return;}
+  const u=await r.json().catch(()=>({}));
+  isAdmin=u.is_admin;
+  me={...me,...u};
+  showDash();
+}
+function renderPlan(){
+  const badge=document.getElementById("plan-badge");
+  const info=document.getElementById("plan-info");
+  const actions=document.getElementById("plan-actions");
+  badge.textContent=me.plan==="premium"?t("plan_badge_premium"):t("plan_badge_free");
+  badge.className="badge "+(me.plan==="premium"?"premium":"free");
+  info.textContent="";
+  if(me.plan_renews_at){
+    const d=new Date(me.plan_renews_at).toLocaleDateString();
+    info.textContent=me.plan_status==="cancelled"?t("plan_until_cancelled",{date:d}):t("plan_renews",{date:d});
+  }
+  actions.innerHTML="";
+  if(!me.premium_enabled)return;
+  if(me.plan==="premium"&&me.has_subscription){
+    const b=document.createElement("button");
+    b.className="secondary small";b.textContent=t("manage_btn");b.onclick=manageSubscription;
+    actions.appendChild(b);
+  }else{
+    const b=document.createElement("button");
+    b.className="premium small";b.textContent=t("upgrade_btn");b.onclick=goPremium;
+    actions.appendChild(b);
+  }
+}
+async function goPremium(){
+  if(!token){document.getElementById("auth-section").scrollIntoView({behavior:"smooth"});return;}
+  const r=await fetch(API+"/api/billing/checkout",{headers:{"Authorization":"Bearer "+token}});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok&&j.url){window.location.href=j.url;}
+  else{msg("add-msg",j.detail||t("js_generic_error"),false);document.getElementById("add-msg").scrollIntoView({behavior:"smooth"});}
+}
+function goFree(){
+  document.getElementById("auth-section").scrollIntoView({behavior:"smooth"});
+}
+async function manageSubscription(){
+  const r=await fetch(API+"/api/billing/portal",{headers:{"Authorization":"Bearer "+token}});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok&&j.url){window.open(j.url,"_blank");}
+  else{alert(j.detail||t("js_generic_error"));}
+}
+function showDash(){
+  document.getElementById("auth-section").classList.add("hidden");
+  document.getElementById("dash-section").classList.remove("hidden");
+  document.getElementById("add-section").classList.remove("hidden");
+  document.getElementById("list-section").classList.remove("hidden");
+  document.getElementById("admin-section").classList.add("hidden");
+  document.getElementById("token-display").textContent=token;
+  if(isAdmin)document.getElementById("admin-btn").classList.remove("hidden");
+  renderPlan();
+  loadDomains();
+}
+function showAdmin(){
+  document.getElementById("dash-section").classList.add("hidden");
+  document.getElementById("add-section").classList.add("hidden");
+  document.getElementById("list-section").classList.add("hidden");
+  document.getElementById("admin-section").classList.remove("hidden");
+  loadAdminData();
+}
+function copyText(id){
+  const text=document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{const btn=event.target;const orig=btn.textContent;btn.textContent=t("copied");setTimeout(()=>btn.textContent=orig,1500);});
+}
+function switchOs(os){
+  document.querySelectorAll('.os-tab').forEach(tb=>tb.classList.remove('active'));
+  document.querySelectorAll('.os-content').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('os-'+os).classList.add('active');
+}
+async function loadDomains(){
+  const r=await fetch(API+"/api/domains",{headers:{"Authorization":"Bearer "+token}});
+  if(r.status===401){logout();return;}
+  const list=await r.json().catch(()=>[]);
+  const box=document.getElementById("domains-list");
+  document.getElementById("count-text").textContent=t("add_count",{count:list.length,max:me.max_domains});
+  document.getElementById("max-badge").textContent=t("badge_max",{max:me.max_domains});
+  const cta=document.getElementById("premium-cta");
+  if(me.plan!=="premium"&&me.premium_enabled&&list.length>=me.max_domains){
+    cta.classList.remove("hidden");
+    cta.innerHTML=`<div class="alert ok">${t("premium_cta",{max:PREMIUM_MAX})} <a href="#" onclick="goPremium();return false;">${t("upgrade_btn")}</a></div>`;
+  }else{
+    cta.classList.add("hidden");cta.innerHTML="";
+  }
+  if(!list.length){box.innerHTML="<p style='color:#6e7681'>"+t("no_domains")+"</p>";return;}
+  box.innerHTML=list.map(d=>`
+    <div class="domain-row">
+      <div>
+        <div class="domain-name">${d.name}.{{ base_domain }}</div>
+        <div class="domain-meta">IP: ${d.ip} · ${new Date(d.updated_at).toLocaleString()}</div>
+      </div>
+      <div class="actions">
+        <button class="secondary small" onclick="updateIp(${d.id},'${d.name}')">${t("update_ip_btn")}</button>
+        <button class="danger small" onclick="deleteDomain(${d.id})">${t("delete_btn")}</button>
+      </div>
+    </div>
+  `).join("");
+}
+async function addDomain(){
+  const name=document.getElementById("new-name").value.trim();
+  let ip=document.getElementById("new-ip").value.trim();
+  if(!ip)ip=await fetch("https://api.ipify.org?format=json").then(r=>r.json()).then(j=>j.ip).catch(()=>"");
+  const fd=new FormData();fd.append("name",name);fd.append("ip",ip);
+  const r=await fetch(API+"/api/domains",{method:"POST",headers:{"Authorization":"Bearer "+token},body:fd});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok){msg("add-msg",t("js_domain_created"),true);document.getElementById("new-name").value="";document.getElementById("new-ip").value="";loadDomains();}
+  else msg("add-msg",j.detail||t("js_generic_error"),false);
+}
+async function deleteDomain(id){
+  if(!confirm(t("js_confirm_delete")))return;
+  const r=await fetch(API+"/api/domains/"+id,{method:"DELETE",headers:{"Authorization":"Bearer "+token}});
+  if(r.ok){loadDomains();}
+  else{const j=await r.json().catch(()=>({}));msg("list-msg",j.detail||t("js_generic_error"),false);}
+}
+async function updateIp(id,name){
+  let ip=prompt(t("js_new_ip_prompt"));
+  if(ip===null)return;
+  if(!ip)ip=await fetch("https://api.ipify.org?format=json").then(r=>r.json()).then(j=>j.ip).catch(()=>"");
+  const fd=new FormData();fd.append("ip",ip);
+  const r=await fetch(API+"/api/domains/"+id,{method:"PUT",headers:{"Authorization":"Bearer "+token},body:fd});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok){loadDomains();}else msg("list-msg",j.detail||t("js_generic_error"),false);
+}
+async function loadAdminData(){
+  const h={"Authorization":"Bearer "+token};
+  const stats=await fetch(API+"/api/admin/stats",{headers:h}).then(r=>r.json()).catch(()=>({}));
+  document.getElementById("stat-users").textContent=stats.users||0;
+  document.getElementById("stat-domains").textContent=stats.domains||0;
+  document.getElementById("stat-premium").textContent=stats.premium||0;
+  const domains=await fetch(API+"/api/admin/domains",{headers:h}).then(r=>r.json()).catch(()=>[]);
+  const domBox=document.getElementById("admin-domains-list");
+  if(!domains.length){domBox.innerHTML="<p style='color:#6e7681'>"+t("none_domains")+"</p>";}
+  else{domBox.innerHTML=`<table><thead><tr><th>${t("col_subdomain")}</th><th>${t("col_ip")}</th><th>${t("col_user")}</th><th>${t("col_updated")}</th></tr></thead><tbody>`+domains.map(d=>`<tr><td>${d.name}.{{ base_domain }}</td><td>${d.ip}</td><td>${d.user_email}</td><td>${new Date(d.updated_at).toLocaleString()}</td></tr>`).join('')+`</tbody></table>`;}
+}
+</script>
+</body>
+</html>

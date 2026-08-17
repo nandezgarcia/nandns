@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} — nandns</title>
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="{{ canonical }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦆</text></svg>">
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:#0f0f23;color:#e0e0e0;line-height:1.6;min-height:100vh;margin:0}
+a{color:#58a6ff;text-decoration:none}
+header{background:#161b22;padding:1.5rem 1rem;text-align:center;border-bottom:1px solid #30363d}
+header h1{color:#f85149;font-size:1.5rem;margin:0}
+main{max-width:760px;margin:0 auto;padding:1.5rem 1rem}
+h2{color:#f85149;font-size:1.05rem;margin:1.25rem 0 .5rem}
+p,li{color:#b8c0c8;font-size:.95rem}
+ul{margin:.5rem 0 .75rem 1.25rem}
+.back{display:inline-block;margin-bottom:1rem;font-size:.9rem}
+footer{text-align:center;padding:1.5rem;color:#484f58;font-size:.8rem}
+</style>
+</head>
+<body>
+<header><h1>🦆 nandns</h1></header>
+<main>
+<a class="back" href="{{ home_url }}">{{ t.back_home }}</a>
+<h1 style="font-size:1.4rem;margin-bottom:.5rem">{{ title }}</h1>
+{{ body|safe }}
+</main>
+<footer>nandns &mdash; dns.kiokao.com</footer>
+</body>
+</html>
