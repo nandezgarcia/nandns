@@ -35,9 +35,11 @@ ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "").strip().lower()
 # Lemon Squeezy (Premium) y enlaces opcionales. Vacío = sección desactivada.
 LS_API_KEY = os.environ.get("LS_API_KEY", "")
 LS_WEBHOOK_SECRET = os.environ.get("LS_WEBHOOK_SECRET", "")
-LS_VARIANT_ID = os.environ.get("LS_VARIANT_ID", "")
+LS_VARIANT_ID = os.environ.get("LS_VARIANT_ID", "")  # legado = anual
+LS_VARIANT_ID_YEARLY = os.environ.get("LS_VARIANT_ID_YEARLY", "") or LS_VARIANT_ID
+LS_VARIANT_ID_MONTHLY = os.environ.get("LS_VARIANT_ID_MONTHLY", "")
 LS_CHECKOUT_URL = os.environ.get("LS_CHECKOUT_URL", "")
-KOFI_URL = os.environ.get("KOFI_URL", "")
+DONATE_URL = os.environ.get("DONATE_URL", "") or os.environ.get("KOFI_URL", "")
 GITHUB_URL = os.environ.get("GITHUB_URL", "")
 
 if not CF_ZONE_ID or not CF_API_TOKEN:
@@ -307,7 +309,7 @@ def render_index(request: Request, lang: str):
         "canonical": f"{BASE_URL}{prefix}/",
         "alternates": [(l, f"{BASE_URL}{LANG_PREFIX[l]}/") for l in ("es", "en", "zh")],
         "base_domain": BASE_DOMAIN,
-        "kofi_url": KOFI_URL,
+        "kofi_url": DONATE_URL,
         "github_url": GITHUB_URL,
         "premium_enabled": bool(LS_CHECKOUT_URL),
         "free_max": FREE_MAX_DOMAINS,
@@ -656,14 +658,17 @@ def update(request: Request, domains: str = "", token: str = "", ip: str = ""):
 # ============ BILLING (Lemon Squeezy) ============
 
 @app.get("/api/billing/checkout")
-def billing_checkout(authorization: str | None = Header(None)):
+def billing_checkout(plan: str = "yearly", authorization: str | None = Header(None)):
     token = authorization.replace("Bearer ", "") if authorization else None
     user = get_user_by_token(token)
     if not LS_CHECKOUT_URL:
         raise HTTPException(503, "Pagos no configurados")
+    variant = LS_VARIANT_ID_MONTHLY if plan == "monthly" else LS_VARIANT_ID_YEARLY
     sep = "&" if "?" in LS_CHECKOUT_URL else "?"
-    url = (
-        f"{LS_CHECKOUT_URL}{sep}"
+    url = f"{LS_CHECKOUT_URL}{sep}"
+    if variant:
+        url += f"variant={variant}&"
+    url += (
         f"checkout[email]={quote(user['email'])}"
         f"&checkout[custom][user_id]={user['id']}"
     )

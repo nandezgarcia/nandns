@@ -18,7 +18,8 @@ Cloudflare como backend DNS. En producción en **https://dns.kiokao.com**.
 - API compatible con DuckDNS: `curl "https://dns.kiokao.com/update?domains=X&token=Y"`
 - Scripts de autoactualización cada 5 min (Windows / macOS / Linux)
 - Web trilingüe (español, inglés, chino) con SEO (hreflang, JSON-LD, sitemap)
-- Plan Premium opcional: 100 subdominios por 5 €/mes con Lemon Squeezy
+- Plan Premium opcional: 100 subdominios por 60 €/año o 7 €/mes con Lemon Squeezy
+- Donaciones con producto «pay what you want» de Lemon Squeezy
 - Panel de administración con estadísticas
 
 ## Requisitos
@@ -47,12 +48,12 @@ Todas las variables se leen del entorno (ver `.env.example`):
 | `BASE_DOMAIN` | Dominio base (por defecto `dns.kiokao.com`) |
 | `ADMIN_EMAIL` | Email del administrador |
 | `FREE_MAX_DOMAINS` / `PREMIUM_MAX_DOMAINS` | Límites por plan (10 / 100) |
-| `LS_API_KEY` / `LS_WEBHOOK_SECRET` / `LS_VARIANT_ID` / `LS_CHECKOUT_URL` | Lemon Squeezy (Premium; vacío = desactivado) |
-| `KOFI_URL` / `GITHUB_URL` | Enlaces opcionales en la web |
+| `LS_API_KEY` / `LS_WEBHOOK_SECRET` / `LS_VARIANT_ID_YEARLY` / `LS_VARIANT_ID_MONTHLY` / `LS_CHECKOUT_URL` | Lemon Squeezy (Premium; vacío = desactivado) |
+| `DONATE_URL` / `GITHUB_URL` | Enlaces opcionales en la web |
 
 ### Premium con Lemon Squeezy
 
-1. Crea un producto de suscripción (5 €/mes) y copia su URL de checkout y variant ID.
+1. Crea un producto de suscripción con dos variantes (anual 60 € y mensual 7 €) y copia su URL de checkout y los variant IDs.
 2. Configura el webhook: `https://tu-dominio/webhook/lemonsqueezy` con los
    eventos `subscription_*` y guarda el signing secret.
 3. Rellena las variables `LS_*` en `.env`.

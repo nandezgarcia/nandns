@@ -29,9 +29,10 @@ ENV = {
     "ADMIN_EMAIL": "admin@gmail.com",
     "LS_API_KEY": "ls_test_key",
     "LS_WEBHOOK_SECRET": "test-webhook-secret",
-    "LS_VARIANT_ID": "12345",
+    "LS_VARIANT_ID_YEARLY": "12345",
+    "LS_VARIANT_ID_MONTHLY": "67890",
     "LS_CHECKOUT_URL": "https://store.lemonsqueezy.test/checkout/buy/abc",
-    "KOFI_URL": "https://ko-fi.com/nandns",
+    "DONATE_URL": "https://store.lemonsqueezy.test/checkout/buy/donate",
     "GITHUB_URL": "https://github.com/nandezgarcia/nandns",
 }
 
@@ -115,7 +116,7 @@ def main():
 
         print("== Donaciones / GitHub / Premium visibles ==")
         st, body = get("/")
-        check("sección Ko-fi visible", "ko-fi.com/nandns" in body)
+        check("sección donaciones visible", "checkout/buy/donate" in body)
         check("enlace GitHub visible", "github.com/nandezgarcia/nandns" in body)
         check("sección precios visible", "plan-card featured" in body)
 
@@ -137,6 +138,10 @@ def main():
         checkout = json.loads(body)
         check("checkout devuelve url", st == 200 and checkout.get("url", "").startswith("https://store.lemonsqueezy.test"), body)
         check("checkout lleva email y user_id", "checkout%5Bemail%5D=test%40gmail.com" in checkout.get("url", "") or "test%40gmail.com" in checkout.get("url", ""), checkout.get("url", ""))
+        check("checkout por defecto es anual", "variant=12345" in checkout.get("url", ""), checkout.get("url", ""))
+        st, body = get("/api/billing/checkout?plan=monthly", {"Authorization": "Bearer tok123"})
+        checkout_m = json.loads(body)
+        check("checkout mensual lleva variante mensual", "variant=67890" in checkout_m.get("url", ""), checkout_m.get("url", ""))
 
         print("== Webhook Lemon Squeezy ==")
         payload = json.dumps({

@@ -9,7 +9,7 @@ Los valores {var} se sustituyen con .format() (Jinja) o con t(key, vars) (JS).
 ES = {
     # --- meta / chrome ---
     "meta_title": "nandns — DNS dinámico gratuito | tu subdominio .dns.kiokao.com",
-    "meta_description": "Servicio gratuito de DNS dinámico (DDNS): crea hasta 10 subdominios .dns.kiokao.com que apuntan siempre a tu IP. API compatible con DuckDNS, actualización automática y plan Premium de 100 hosts por 5 €/mes.",
+    "meta_description": "Servicio gratuito de DNS dinámico (DDNS): crea hasta 10 subdominios .dns.kiokao.com que apuntan siempre a tu IP. API compatible con DuckDNS, actualización automática y plan Premium de 100 hosts por 60 €/año o 7 €/mes.",
     "header_tagline": "DNS dinámico gratuito: tu subdominio .dns.kiokao.com siempre apuntando a tu IP",
     # --- login ---
     "login_title": "Iniciar sesión",
@@ -25,7 +25,7 @@ ES = {
     "plan_badge_premium": "Premium",
     "plan_renews": "Se renueva el {date}",
     "plan_until_cancelled": "Activo hasta el {date} (cancelada, no se renovará)",
-    "upgrade_btn": "Hazte Premium — 5 €/mes",
+    "upgrade_btn": "Hazte Premium — 60 €/año",
     "manage_btn": "Gestionar suscripción",
     # --- añadir dominio ---
     "add_title": "Añadir subdominio",
@@ -34,7 +34,7 @@ ES = {
     "name_ph": "nombre",
     "ip_ph": "IP (ej: 1.2.3.4) - deja en blanco para usar tu IP actual",
     "create_btn": "Crear subdominio",
-    "premium_cta": "¿Necesitas más? Con Premium llegas hasta {max} subdominios por 5 €/mes.",
+    "premium_cta": "¿Necesitas más? Con Premium llegas hasta {max} subdominios por 60 €/año (o 7 €/mes).",
     # --- lista ---
     "your_domains": "Tus subdominios",
     "no_domains": "No tienes subdominios aún.",
@@ -90,7 +90,7 @@ ES = {
         ["Subdominios gratis", "10", "5", "1"],
         ["El plan gratis caduca", "Nunca", "Nunca", "Cada 30 días hay que confirmarlo"],
         ["API compatible con DuckDNS", "Sí", "Sí", "No"],
-        ["Plan Premium", "100 hosts — 5 €/mes", "—", "Desde ~2 $/mes"],
+        ["Plan Premium", "100 hosts — 60 €/año", "—", "Desde ~2 $/mes"],
         ["Código abierto", "Sí", "No", "No"],
     ],
     # --- landing: precios ---
@@ -107,21 +107,23 @@ ES = {
     ],
     "free_cta": "Crear cuenta gratis",
     "premium_name": "Premium",
-    "premium_price": "5 €",
-    "premium_per": "/mes",
+    "premium_price": "60 €",
+    "premium_per": "/año",
+    "premium_save": "Equivale a 5 €/mes — ahorras 24 € al año",
     "premium_features": [
         "Hasta 100 subdominios",
         "Todo lo del plan Gratis",
         "Soporte prioritario por email",
         "Ayudas a mantener el servicio",
     ],
-    "premium_cta": "Hazte Premium",
+    "premium_cta": "Pagar 60 €/año",
+    "premium_cta_monthly": "O 7 €/mes",
     "pricing_note": "Pagos gestionados por Lemon Squeezy (IVA incluido). Puedes cancelar cuando quieras.",
     # --- landing: FAQ ---
     "faq_title": "Preguntas frecuentes",
     "faq_items": [
         ["¿Es realmente gratis?",
-         "Sí. El plan gratuito incluye hasta 10 subdominios para siempre, sin caducidad ni confirmaciones periódicas. Si necesitas más, el plan Premium permite hasta 100 por 5 €/mes."],
+         "Sí. El plan gratuito incluye hasta 10 subdominios para siempre, sin caducidad ni confirmaciones periódicas. Si necesitas más, el plan Premium permite hasta 100 por 60 €/año (o 7 €/mes si prefieres pagar mes a mes)."],
         ["¿Qué es exactamente un subdominio .dns.kiokao.com?",
          "Es un registro DNS tipo A (por ejemplo micasa.dns.kiokao.com) que apunta a la IP que tú indiques. Cuando tu IP cambia, el subdominio se actualiza automáticamente con el script o la API."],
         ["¿Cómo actualizo mi IP automáticamente?",
@@ -136,7 +138,7 @@ ES = {
     # --- landing: donaciones ---
     "donate_title": "☕ Apoya nandns",
     "donate_body": "nandns es gratis y lo seguirá siendo. Si te resulta útil, puedes invitarme a un café: ayuda a pagar el servidor y el dominio.",
-    "donate_btn": "Invítame a un café en Ko-fi",
+    "donate_btn": "Invítame a un café ☕",
     # --- footer / legal ---
     "footer_made": "Hecho con FastAPI y Cloudflare",
     "footer_legal": "Aviso legal",
@@ -189,7 +191,7 @@ ES = {
 <h2>Planes y límites</h2>
 <ul>
 <li><b>Gratis:</b> hasta 10 subdominios, sin caducidad.</li>
-<li><b>Premium (5 €/mes):</b> hasta 100 subdominios. La suscripción se gestiona a través de Lemon Squeezy, que actúa como vendedor y emite la factura. Puedes cancelarla en cualquier momento desde tu portal de cliente; conservas el plan hasta el final del periodo pagado y no hay reembolsos prorrateados salvo que la ley disponga lo contrario.</li>
+<li><b>Premium:</b> hasta 100 subdominios, por 60 €/año o 7 €/mes. La suscripción se gestiona a través de Lemon Squeezy, que actúa como vendedor y emite la factura. Puedes cancelarla en cualquier momento desde tu portal de cliente; conservas el plan hasta el final del periodo pagado y no hay reembolsos prorrateados salvo que la ley disponga lo contrario.</li>
 </ul>
 <h2>Uso aceptable</h2>
 <p>Queda prohibido usar el servicio para actividades ilegales, phishing, spam, malware o cualquier uso que dañe a terceros o al propio servicio. El incumplimiento puede suponer la suspensión inmediata de la cuenta y la eliminación de los subdominios.</p>
@@ -204,7 +206,7 @@ ES = {
 
 EN = {
     "meta_title": "nandns — Free dynamic DNS | your .dns.kiokao.com subdomain",
-    "meta_description": "Free dynamic DNS (DDNS) service: create up to 10 .dns.kiokao.com subdomains that always point to your current IP. DuckDNS-compatible API, automatic updates and a 100-host Premium plan for €5/month.",
+    "meta_description": "Free dynamic DNS (DDNS) service: create up to 10 .dns.kiokao.com subdomains that always point to your current IP. DuckDNS-compatible API, automatic updates and a 100-host Premium plan for €60/year or €7/month.",
     "header_tagline": "Free dynamic DNS: your .dns.kiokao.com subdomain always pointing to your IP",
     "login_title": "Sign in",
     "login_subtitle": "Gmail accounts only",
@@ -218,7 +220,7 @@ EN = {
     "plan_badge_premium": "Premium",
     "plan_renews": "Renews on {date}",
     "plan_until_cancelled": "Active until {date} (cancelled, will not renew)",
-    "upgrade_btn": "Go Premium — €5/month",
+    "upgrade_btn": "Go Premium — €60/year",
     "manage_btn": "Manage subscription",
     "add_title": "Add subdomain",
     "badge_max": "Max {max}",
@@ -226,7 +228,7 @@ EN = {
     "name_ph": "name",
     "ip_ph": "IP (e.g. 1.2.3.4) - leave blank to use your current IP",
     "create_btn": "Create subdomain",
-    "premium_cta": "Need more? Premium gives you up to {max} subdomains for €5/month.",
+    "premium_cta": "Need more? Premium gives you up to {max} subdomains for €60/year (or €7/month).",
     "your_domains": "Your subdomains",
     "no_domains": "You have no subdomains yet.",
     "update_ip_btn": "Update IP",
@@ -275,7 +277,7 @@ EN = {
         ["Free subdomains", "10", "5", "1"],
         ["Free plan expires", "Never", "Never", "Must be confirmed every 30 days"],
         ["DuckDNS-compatible API", "Yes", "Yes", "No"],
-        ["Premium plan", "100 hosts — €5/month", "—", "From ~$2/month"],
+        ["Premium plan", "100 hosts — €60/year", "—", "From ~$2/month"],
         ["Open source", "Yes", "No", "No"],
     ],
     "pricing_title": "Pricing",
@@ -291,20 +293,22 @@ EN = {
     ],
     "free_cta": "Create free account",
     "premium_name": "Premium",
-    "premium_price": "€5",
-    "premium_per": "/month",
+    "premium_price": "€60",
+    "premium_per": "/year",
+    "premium_save": "Works out at €5/month — save €24 a year",
     "premium_features": [
         "Up to 100 subdomains",
         "Everything in the Free plan",
         "Priority email support",
         "You help keep the service running",
     ],
-    "premium_cta": "Go Premium",
+    "premium_cta": "Pay €60/year",
+    "premium_cta_monthly": "Or €7/month",
     "pricing_note": "Payments handled by Lemon Squeezy (VAT included). Cancel anytime.",
     "faq_title": "Frequently asked questions",
     "faq_items": [
         ["Is it really free?",
-         "Yes. The free plan includes up to 10 subdomains forever, with no expiry and no periodic confirmations. If you need more, the Premium plan allows up to 100 for €5/month."],
+         "Yes. The free plan includes up to 10 subdomains forever, with no expiry and no periodic confirmations. If you need more, the Premium plan allows up to 100 for €60/year (or €7/month if you prefer to pay monthly)."],
         ["What exactly is a .dns.kiokao.com subdomain?",
          "It is a DNS A record (e.g. myhome.dns.kiokao.com) pointing to the IP you choose. When your IP changes, the subdomain is updated automatically via the script or the API."],
         ["How do I update my IP automatically?",
@@ -318,7 +322,7 @@ EN = {
     ],
     "donate_title": "☕ Support nandns",
     "donate_body": "nandns is free and will stay free. If you find it useful, you can buy me a coffee: it helps pay for the server and the domain.",
-    "donate_btn": "Buy me a coffee on Ko-fi",
+    "donate_btn": "Buy me a coffee ☕",
     "footer_made": "Built with FastAPI and Cloudflare",
     "footer_legal": "Legal notice",
     "footer_privacy": "Privacy",
@@ -369,7 +373,7 @@ EN = {
 <h2>Plans and limits</h2>
 <ul>
 <li><b>Free:</b> up to 10 subdomains, no expiry.</li>
-<li><b>Premium (€5/month):</b> up to 100 subdomains. The subscription is managed through Lemon Squeezy, which acts as the seller and issues the invoice. You can cancel anytime from your customer portal; you keep the plan until the end of the paid period and there are no pro-rated refunds unless the law says otherwise.</li>
+<li><b>Premium:</b> up to 100 subdomains, for €60/year or €7/month. The subscription is managed through Lemon Squeezy, which acts as the seller and issues the invoice. You can cancel anytime from your customer portal; you keep the plan until the end of the paid period and there are no pro-rated refunds unless the law says otherwise.</li>
 </ul>
 <h2>Acceptable use</h2>
 <p>Using the service for illegal activities, phishing, spam, malware or any use that harms third parties or the service itself is forbidden. Breaches may lead to immediate account suspension and deletion of subdomains.</p>
@@ -384,7 +388,7 @@ EN = {
 
 ZH = {
     "meta_title": "nandns — 免费动态DNS | 你的 .dns.kiokao.com 子域名",
-    "meta_description": "免费动态DNS（DDNS）服务：创建最多10个始终指向你当前IP的 .dns.kiokao.com 子域名。兼容DuckDNS的API、自动更新，另有5欧元/月、100个主机的Premium方案。",
+    "meta_description": "免费动态DNS（DDNS）服务：创建最多10个始终指向你当前IP的 .dns.kiokao.com 子域名。兼容DuckDNS的API、自动更新，另有Premium方案：100个主机，60 €/年或7 €/月。",
     "header_tagline": "免费动态DNS：你的 .dns.kiokao.com 子域名始终指向你的IP",
     "login_title": "登录",
     "login_subtitle": "仅限Gmail账户",
@@ -398,7 +402,7 @@ ZH = {
     "plan_badge_premium": "Premium",
     "plan_renews": "将于 {date} 续订",
     "plan_until_cancelled": "有效期至 {date}（已取消，不再续订）",
-    "upgrade_btn": "升级Premium — 5 €/月",
+    "upgrade_btn": "升级Premium — 60 €/年",
     "manage_btn": "管理订阅",
     "add_title": "添加子域名",
     "badge_max": "最多 {max} 个",
@@ -406,7 +410,7 @@ ZH = {
     "name_ph": "名称",
     "ip_ph": "IP（例如 1.2.3.4）— 留空则使用当前IP",
     "create_btn": "创建子域名",
-    "premium_cta": "需要更多？Premium每月5 €，最多 {max} 个子域名。",
+    "premium_cta": "需要更多？Premium每年60 €（或每月7 €），最多 {max} 个子域名。",
     "your_domains": "你的子域名",
     "no_domains": "你还没有子域名。",
     "update_ip_btn": "更新IP",
@@ -455,7 +459,7 @@ ZH = {
         ["免费子域名数量", "10", "5", "1"],
         ["免费方案是否过期", "永不", "永不", "每30天需确认一次"],
         ["兼容DuckDNS的API", "是", "是", "否"],
-        ["Premium方案", "100个主机 — 5 €/月", "—", "约2 $/月起"],
+        ["Premium方案", "100个主机 — 60 €/年", "—", "约2 $/月起"],
         ["开源", "是", "否", "否"],
     ],
     "pricing_title": "价格",
@@ -471,20 +475,22 @@ ZH = {
     ],
     "free_cta": "免费注册",
     "premium_name": "Premium",
-    "premium_price": "5 €",
-    "premium_per": "/月",
+    "premium_price": "60 €",
+    "premium_per": "/年",
+    "premium_save": "相当于每月5 €——每年节省24 €",
     "premium_features": [
         "最多100个子域名",
         "包含免费版全部功能",
         "优先邮件支持",
         "帮助维持服务运行",
     ],
-    "premium_cta": "升级Premium",
+    "premium_cta": "支付 60 €/年",
+    "premium_cta_monthly": "或 7 €/月",
     "pricing_note": "付款由 Lemon Squeezy 处理（含增值税）。随时可以取消。",
     "faq_title": "常见问题",
     "faq_items": [
         ["真的免费吗？",
-         "是的。免费方案包含最多10个子域名，永久有效，无需定期确认。如需更多，Premium方案每月5 €，最多100个。"],
+         "是的。免费方案包含最多10个子域名，永久有效，无需定期确认。如需更多，Premium方案每年60 €（也可选择每月7 €），最多100个。"],
         [".dns.kiokao.com 子域名到底是什么？",
          "它是一条DNS A记录（例如 myhome.dns.kiokao.com），指向你指定的IP。当你的IP变化时，子域名会通过脚本或API自动更新。"],
         ["如何自动更新我的IP？",
@@ -498,7 +504,7 @@ ZH = {
     ],
     "donate_title": "☕ 支持nandns",
     "donate_body": "nandns免费，并将永远免费。如果它对你有用，可以请我喝杯咖啡：帮助支付服务器和域名费用。",
-    "donate_btn": "在Ko-fi上请我喝咖啡",
+    "donate_btn": "请我喝杯咖啡 ☕",
     "footer_made": "基于 FastAPI 和 Cloudflare 构建",
     "footer_legal": "法律声明",
     "footer_privacy": "隐私政策",
@@ -549,7 +555,7 @@ ZH = {
 <h2>方案与限制</h2>
 <ul>
 <li><b>免费版：</b>最多10个子域名，永不过期。</li>
-<li><b>Premium（5 €/月）：</b>最多100个子域名。订阅通过Lemon Squeezy管理，其作为销售方开具发票。你可以随时在客户门户中取消；在已付费周期结束前仍可继续使用，除法律规定外不按比例退款。</li>
+<li><b>Premium：</b>最多100个子域名，60 €/年或7 €/月。订阅通过Lemon Squeezy管理，其作为销售方开具发票。你可以随时在客户门户中取消；在已付费周期结束前仍可继续使用，除法律规定外不按比例退款。</li>
 </ul>
 <h2>可接受使用</h2>
 <p>禁止将本服务用于非法活动、网络钓鱼、垃圾邮件、恶意软件或任何损害第三方或服务本身的行为。违规可能导致账户立即被暂停并删除子域名。</p>

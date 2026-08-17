@@ -42,9 +42,9 @@ file). Claves:
 - `CF_ZONE_ID` / `CF_API_TOKEN` — zona y token de Cloudflare
 - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — OAuth de Google
 - `ADMIN_EMAIL` — email del administrador
-- `LS_API_KEY` / `LS_WEBHOOK_SECRET` / `LS_VARIANT_ID` / `LS_CHECKOUT_URL` —
+- `LS_API_KEY` / `LS_WEBHOOK_SECRET` / `LS_VARIANT_ID_YEARLY` / `LS_VARIANT_ID_MONTHLY` / `LS_CHECKOUT_URL` —
   Lemon Squeezy (Premium; vacías = sección Premium oculta, webhook 503)
-- `KOFI_URL` — enlace de donaciones (vacío = sección oculta)
+- `DONATE_URL` — enlace de donaciones (vacío = sección oculta)
 - `GITHUB_URL` — repo del código (vacío = sin enlace en footer/JSON-LD)
 - `FREE_MAX_DOMAINS` (10) / `PREMIUM_MAX_DOMAINS` (100) — límites por plan
 
@@ -142,7 +142,7 @@ sudo certbot renew
 - La app usa `httpx` para comunicarse con Cloudflare API y Lemon Squeezy
 - Cada dominio creado genera un registro A en Cloudflare para `{name}.dns.kiokao.com`
 - El endpoint `/update` es compatible con clientes DuckDNS
-- Límite por plan: 10 subdominios gratis, 100 con Premium (5 €/mes, Lemon Squeezy)
+- Límite por plan: 10 subdominios gratis, 100 con Premium (60 €/año o 7 €/mes, Lemon Squeezy; donaciones con producto PWYW)
 - Web trilingüe (es/en/zh) con i18n server-side; al añadir texto a la UI hay que
   añadir la clave en los 3 diccionarios de `translations.py` (verificar simetría)
 - Los mensajes de error del servidor siguen en español (decisión consciente:
