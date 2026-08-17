@@ -28,7 +28,7 @@ CF_API_TOKEN = os.environ.get("CF_API_TOKEN", "")
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
 REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI", "https://dns.kiokao.com/auth/google/callback")
-FREE_MAX_DOMAINS = int(os.environ.get("FREE_MAX_DOMAINS", "10"))
+FREE_MAX_DOMAINS = int(os.environ.get("FREE_MAX_DOMAINS", "6"))
 PREMIUM_MAX_DOMAINS = int(os.environ.get("PREMIUM_MAX_DOMAINS", "100"))
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "").strip().lower()
 

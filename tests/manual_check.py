@@ -132,7 +132,7 @@ def main():
         st, body = get("/api/me", {"Authorization": "Bearer tok123"})
         me = json.loads(body)
         check("/api/me 200", st == 200, f"status={st}")
-        check("plan free y max 10", me.get("plan") == "free" and me.get("max_domains") == 10, body)
+        check("plan free y max 6", me.get("plan") == "free" and me.get("max_domains") == 6, body)
 
         st, body = get("/api/billing/checkout", {"Authorization": "Bearer tok123"})
         checkout = json.loads(body)
@@ -174,7 +174,7 @@ def main():
         st, _ = post_raw("/webhook/lemonsqueezy", payload2, {"X-Signature": sig2})
         st, body = get("/api/me", {"Authorization": "Bearer tok123"})
         me = json.loads(body)
-        check("expirada -> free y max 10", me.get("plan") == "free" and me.get("max_domains") == 10, body)
+        check("expirada -> free y max 6", me.get("plan") == "free" and me.get("max_domains") == 6, body)
 
         # cancelada con ends_at futuro -> sigue premium
         payload3 = json.dumps({

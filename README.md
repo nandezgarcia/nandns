@@ -5,7 +5,7 @@ Cloudflare como backend DNS. En producción en **https://dns.kiokao.com**.
 
 > English: nandns is a self-hosted dynamic DNS (DDNS) service — a free
 > DuckDNS alternative built with FastAPI and the Cloudflare API. Users sign
-> in with Google, create up to 10 subdomains that always point to their
+> in with Google, create up to 6 subdomains that always point to their
 > current IP, and update them via a DuckDNS-compatible API
 > (`GET /update?domains=X&token=Y`). Ships with a trilingual (es/en/zh) web
 > UI, auto-update scripts for Windows/macOS/Linux, and an optional Premium

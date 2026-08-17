@@ -9,7 +9,7 @@ Los valores {var} se sustituyen con .format() (Jinja) o con t(key, vars) (JS).
 ES = {
     # --- meta / chrome ---
     "meta_title": "nandns — DNS dinámico gratuito | tu subdominio .dns.kiokao.com",
-    "meta_description": "Servicio gratuito de DNS dinámico (DDNS): crea hasta 10 subdominios .dns.kiokao.com que apuntan siempre a tu IP. API compatible con DuckDNS, actualización automática y plan Premium de 100 hosts por 60 €/año o 7 €/mes.",
+    "meta_description": "Servicio gratuito de DNS dinámico (DDNS): crea hasta 6 subdominios .dns.kiokao.com que apuntan siempre a tu IP. API compatible con DuckDNS, actualización automática y plan Premium de 100 hosts por 60 €/año o 7 €/mes.",
     "header_tagline": "DNS dinámico gratuito: tu subdominio .dns.kiokao.com siempre apuntando a tu IP",
     # --- login ---
     "login_title": "Iniciar sesión",
@@ -87,7 +87,7 @@ ES = {
     "compare_p": "Existen otros servicios de DNS dinámico. Así se compara nandns con los más conocidos:",
     "compare_col_feature": "Característica",
     "compare_rows": [
-        ["Subdominios gratis", "10", "5", "1"],
+        ["Subdominios gratis", "6", "5", "1"],
         ["El plan gratis caduca", "Nunca", "Nunca", "Cada 30 días hay que confirmarlo"],
         ["API compatible con DuckDNS", "Sí", "Sí", "No"],
         ["Plan Premium", "100 hosts — 60 €/año", "—", "Desde ~2 $/mes"],
@@ -100,7 +100,7 @@ ES = {
     "free_price": "0 €",
     "free_per": "",
     "free_features": [
-        "Hasta 10 subdominios",
+        "Hasta 6 subdominios",
         "Sin caducidad",
         "API compatible con DuckDNS",
         "Actualización automática cada 5 minutos",
@@ -123,7 +123,7 @@ ES = {
     "faq_title": "Preguntas frecuentes",
     "faq_items": [
         ["¿Es realmente gratis?",
-         "Sí. El plan gratuito incluye hasta 10 subdominios para siempre, sin caducidad ni confirmaciones periódicas. Si necesitas más, el plan Premium permite hasta 100 por 60 €/año (o 7 €/mes si prefieres pagar mes a mes)."],
+         "Sí. El plan gratuito incluye hasta 6 subdominios para siempre, sin caducidad ni confirmaciones periódicas. Si necesitas más, el plan Premium permite hasta 100 por 60 €/año (o 7 €/mes si prefieres pagar mes a mes)."],
         ["¿Qué es exactamente un subdominio .dns.kiokao.com?",
          "Es un registro DNS tipo A (por ejemplo micasa.dns.kiokao.com) que apunta a la IP que tú indiques. Cuando tu IP cambia, el subdominio se actualiza automáticamente con el script o la API."],
         ["¿Cómo actualizo mi IP automáticamente?",
@@ -133,7 +133,7 @@ ES = {
         ["¿Puedo usar mi propio dominio?",
          "No. nandns solo ofrece subdominios de dns.kiokao.com. Si necesitas un dominio propio, servicios como Cloudflare te permiten gestionar el DNS de tu dominio directamente."],
         ["¿Qué pasa si cancelo Premium?",
-         "Conservas el plan Premium hasta el final del periodo ya pagado. Después vuelves al límite gratuito de 10 subdominios: los que ya tengas creados no se borran, pero no podrás crear nuevos por encima del límite."],
+         "Conservas el plan Premium hasta el final del periodo ya pagado. Después vuelves al límite gratuito de 6 subdominios: los que ya tengas creados no se borran, pero no podrás crear nuevos por encima del límite."],
     ],
     # --- landing: donaciones ---
     "donate_title": "☕ Apoya nandns",
@@ -190,7 +190,7 @@ ES = {
 <p>El acceso requiere una cuenta de Google (@gmail.com). Eres responsable de la custodia de tu token de API.</p>
 <h2>Planes y límites</h2>
 <ul>
-<li><b>Gratis:</b> hasta 10 subdominios, sin caducidad.</li>
+<li><b>Gratis:</b> hasta 6 subdominios, sin caducidad.</li>
 <li><b>Premium:</b> hasta 100 subdominios, por 60 €/año o 7 €/mes. La suscripción se gestiona a través de Lemon Squeezy, que actúa como vendedor y emite la factura. Puedes cancelarla en cualquier momento desde tu portal de cliente; conservas el plan hasta el final del periodo pagado y no hay reembolsos prorrateados salvo que la ley disponga lo contrario.</li>
 </ul>
 <h2>Uso aceptable</h2>
@@ -206,7 +206,7 @@ ES = {
 
 EN = {
     "meta_title": "nandns — Free dynamic DNS | your .dns.kiokao.com subdomain",
-    "meta_description": "Free dynamic DNS (DDNS) service: create up to 10 .dns.kiokao.com subdomains that always point to your current IP. DuckDNS-compatible API, automatic updates and a 100-host Premium plan for €60/year or €7/month.",
+    "meta_description": "Free dynamic DNS (DDNS) service: create up to 6 .dns.kiokao.com subdomains that always point to your current IP. DuckDNS-compatible API, automatic updates and a 100-host Premium plan for €60/year or €7/month.",
     "header_tagline": "Free dynamic DNS: your .dns.kiokao.com subdomain always pointing to your IP",
     "login_title": "Sign in",
     "login_subtitle": "Gmail accounts only",
@@ -274,7 +274,7 @@ EN = {
     "compare_p": "There are other dynamic DNS services. Here is how nandns compares with the best-known ones:",
     "compare_col_feature": "Feature",
     "compare_rows": [
-        ["Free subdomains", "10", "5", "1"],
+        ["Free subdomains", "6", "5", "1"],
         ["Free plan expires", "Never", "Never", "Must be confirmed every 30 days"],
         ["DuckDNS-compatible API", "Yes", "Yes", "No"],
         ["Premium plan", "100 hosts — €60/year", "—", "From ~$2/month"],
@@ -286,7 +286,7 @@ EN = {
     "free_price": "€0",
     "free_per": "",
     "free_features": [
-        "Up to 10 subdomains",
+        "Up to 6 subdomains",
         "No expiry",
         "DuckDNS-compatible API",
         "Automatic updates every 5 minutes",
@@ -308,7 +308,7 @@ EN = {
     "faq_title": "Frequently asked questions",
     "faq_items": [
         ["Is it really free?",
-         "Yes. The free plan includes up to 10 subdomains forever, with no expiry and no periodic confirmations. If you need more, the Premium plan allows up to 100 for €60/year (or €7/month if you prefer to pay monthly)."],
+         "Yes. The free plan includes up to 6 subdomains forever, with no expiry and no periodic confirmations. If you need more, the Premium plan allows up to 100 for €60/year (or €7/month if you prefer to pay monthly)."],
         ["What exactly is a .dns.kiokao.com subdomain?",
          "It is a DNS A record (e.g. myhome.dns.kiokao.com) pointing to the IP you choose. When your IP changes, the subdomain is updated automatically via the script or the API."],
         ["How do I update my IP automatically?",
@@ -318,7 +318,7 @@ EN = {
         ["Can I use my own domain?",
          "No. nandns only offers subdomains of dns.kiokao.com. If you need your own domain, services like Cloudflare let you manage your domain's DNS directly."],
         ["What happens if I cancel Premium?",
-         "You keep the Premium plan until the end of the period you already paid for. Then you go back to the free limit of 10 subdomains: the ones you already created are not deleted, but you cannot create new ones above the limit."],
+         "You keep the Premium plan until the end of the period you already paid for. Then you go back to the free limit of 6 subdomains: the ones you already created are not deleted, but you cannot create new ones above the limit."],
     ],
     "donate_title": "☕ Support nandns",
     "donate_body": "nandns is free and will stay free. If you find it useful, you can buy me a coffee: it helps pay for the server and the domain.",
@@ -372,7 +372,7 @@ EN = {
 <p>Access requires a Google account (@gmail.com). You are responsible for keeping your API token safe.</p>
 <h2>Plans and limits</h2>
 <ul>
-<li><b>Free:</b> up to 10 subdomains, no expiry.</li>
+<li><b>Free:</b> up to 6 subdomains, no expiry.</li>
 <li><b>Premium:</b> up to 100 subdomains, for €60/year or €7/month. The subscription is managed through Lemon Squeezy, which acts as the seller and issues the invoice. You can cancel anytime from your customer portal; you keep the plan until the end of the paid period and there are no pro-rated refunds unless the law says otherwise.</li>
 </ul>
 <h2>Acceptable use</h2>
@@ -388,7 +388,7 @@ EN = {
 
 ZH = {
     "meta_title": "nandns — 免费动态DNS | 你的 .dns.kiokao.com 子域名",
-    "meta_description": "免费动态DNS（DDNS）服务：创建最多10个始终指向你当前IP的 .dns.kiokao.com 子域名。兼容DuckDNS的API、自动更新，另有Premium方案：100个主机，60 €/年或7 €/月。",
+    "meta_description": "免费动态DNS（DDNS）服务：创建最多6个始终指向你当前IP的 .dns.kiokao.com 子域名。兼容DuckDNS的API、自动更新，另有Premium方案：100个主机，60 €/年或7 €/月。",
     "header_tagline": "免费动态DNS：你的 .dns.kiokao.com 子域名始终指向你的IP",
     "login_title": "登录",
     "login_subtitle": "仅限Gmail账户",
@@ -456,7 +456,7 @@ ZH = {
     "compare_p": "市面上还有其他动态DNS服务，以下是nandns与最知名服务的对比：",
     "compare_col_feature": "特性",
     "compare_rows": [
-        ["免费子域名数量", "10", "5", "1"],
+        ["免费子域名数量", "6", "5", "1"],
         ["免费方案是否过期", "永不", "永不", "每30天需确认一次"],
         ["兼容DuckDNS的API", "是", "是", "否"],
         ["Premium方案", "100个主机 — 60 €/年", "—", "约2 $/月起"],
@@ -468,7 +468,7 @@ ZH = {
     "free_price": "0 €",
     "free_per": "",
     "free_features": [
-        "最多10个子域名",
+        "最多6个子域名",
         "永不过期",
         "兼容DuckDNS的API",
         "每5分钟自动更新",
@@ -490,7 +490,7 @@ ZH = {
     "faq_title": "常见问题",
     "faq_items": [
         ["真的免费吗？",
-         "是的。免费方案包含最多10个子域名，永久有效，无需定期确认。如需更多，Premium方案每年60 €（也可选择每月7 €），最多100个。"],
+         "是的。免费方案包含最多6个子域名，永久有效，无需定期确认。如需更多，Premium方案每年60 €（也可选择每月7 €），最多100个。"],
         [".dns.kiokao.com 子域名到底是什么？",
          "它是一条DNS A记录（例如 myhome.dns.kiokao.com），指向你指定的IP。当你的IP变化时，子域名会通过脚本或API自动更新。"],
         ["如何自动更新我的IP？",
@@ -500,7 +500,7 @@ ZH = {
         ["可以使用自己的域名吗？",
          "不可以。nandns仅提供 dns.kiokao.com 的子域名。如果你需要自己的域名，可以使用Cloudflare等服务直接管理你域名的DNS。"],
         ["取消Premium会怎样？",
-         "你可以保留Premium直到已付费周期结束。之后恢复为10个子域名的免费上限：已创建的子域名不会被删除，但超过上限后无法再创建新的。"],
+         "你可以保留Premium直到已付费周期结束。之后恢复为6个子域名的免费上限：已创建的子域名不会被删除，但超过上限后无法再创建新的。"],
     ],
     "donate_title": "☕ 支持nandns",
     "donate_body": "nandns免费，并将永远免费。如果它对你有用，可以请我喝杯咖啡：帮助支付服务器和域名费用。",
@@ -554,7 +554,7 @@ ZH = {
 <p>访问需要Google账户（@gmail.com）。你有责任妥善保管你的API令牌。</p>
 <h2>方案与限制</h2>
 <ul>
-<li><b>免费版：</b>最多10个子域名，永不过期。</li>
+<li><b>免费版：</b>最多6个子域名，永不过期。</li>
 <li><b>Premium：</b>最多100个子域名，60 €/年或7 €/月。订阅通过Lemon Squeezy管理，其作为销售方开具发票。你可以随时在客户门户中取消；在已付费周期结束前仍可继续使用，除法律规定外不按比例退款。</li>
 </ul>
 <h2>可接受使用</h2>

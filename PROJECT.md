@@ -67,7 +67,7 @@ file). Claves:
 | `GET /auth/google/callback` | Callback OAuth |
 | `GET /api/me` | Info del usuario (email, plan, max_domains, renews_at) |
 | `GET /api/domains` | Listar subdominios del usuario |
-| `POST /api/domains` | Crear subdominio (límite según plan: 10 free / 100 premium) |
+| `POST /api/domains` | Crear subdominio (límite según plan: 6 free / 100 premium) |
 | `PUT /api/domains/{id}` | Actualizar IP |
 | `DELETE /api/domains/{id}` | Eliminar subdominio |
 | `GET /update` | API compatible DuckDNS |
@@ -142,7 +142,7 @@ sudo certbot renew
 - La app usa `httpx` para comunicarse con Cloudflare API y Lemon Squeezy
 - Cada dominio creado genera un registro A en Cloudflare para `{name}.dns.kiokao.com`
 - El endpoint `/update` es compatible con clientes DuckDNS
-- Límite por plan: 10 subdominios gratis, 100 con Premium (60 €/año o 7 €/mes, Lemon Squeezy; donaciones con producto PWYW)
+- Límite por plan: 6 subdominios gratis, 100 con Premium (60 €/año o 7 €/mes, Lemon Squeezy; donaciones con producto PWYW)
 - Web trilingüe (es/en/zh) con i18n server-side; al añadir texto a la UI hay que
   añadir la clave en los 3 diccionarios de `translations.py` (verificar simetría)
 - Los mensajes de error del servidor siguen en español (decisión consciente:
