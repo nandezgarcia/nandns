@@ -421,8 +421,9 @@ async function loadDomains(){
   if(r.status===401){logout();return;}
   const list=await r.json().catch(()=>[]);
   const box=document.getElementById("domains-list");
-  document.getElementById("count-text").textContent=t("add_count",{count:list.length,max:me.max_domains});
-  document.getElementById("max-badge").textContent=t("badge_max",{max:me.max_domains});
+  const maxTxt=me.max_domains>9999?"∞":me.max_domains;
+  document.getElementById("count-text").textContent=t("add_count",{count:list.length,max:maxTxt});
+  document.getElementById("max-badge").textContent=t("badge_max",{max:maxTxt});
   const cta=document.getElementById("premium-cta");
   if(me.plan!=="premium"&&me.premium_enabled&&list.length>=me.max_domains){
     cta.classList.remove("hidden");
