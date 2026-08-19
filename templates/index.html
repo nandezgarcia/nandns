@@ -119,6 +119,14 @@ footer a{color:#6e7681;margin:0 .4rem}
 </header>
 <div class="container">
 
+{% if kofi_url %}
+<div class="section landing donate-box">
+<h2>{{ t.donate_title }}</h2>
+<p>{{ t.donate_body }}</p>
+<a href="{{ kofi_url }}" target="_blank" rel="noopener"><button class="premium">{{ t.donate_btn }}</button></a>
+</div>
+{% endif %}
+
 <!-- Login -->
 <div id="auth-section" class="section">
 <h2>{{ t.login_title }}</h2>
@@ -295,14 +303,6 @@ iwr $url -UseBasicParsing | iex</pre>
 </details>
 {% endfor %}
 </div>
-
-{% if kofi_url %}
-<div class="section landing donate-box">
-<h2>{{ t.donate_title }}</h2>
-<p>{{ t.donate_body }}</p>
-<a href="{{ kofi_url }}" target="_blank" rel="noopener"><button class="premium">{{ t.donate_btn }}</button></a>
-</div>
-{% endif %}
 
 </div>
 <footer>
