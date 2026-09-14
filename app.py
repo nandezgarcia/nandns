@@ -39,7 +39,11 @@ LS_VARIANT_ID = os.environ.get("LS_VARIANT_ID", "")  # legado = anual
 LS_VARIANT_ID_YEARLY = os.environ.get("LS_VARIANT_ID_YEARLY", "") or LS_VARIANT_ID
 LS_VARIANT_ID_MONTHLY = os.environ.get("LS_VARIANT_ID_MONTHLY", "")
 LS_CHECKOUT_URL = os.environ.get("LS_CHECKOUT_URL", "")
-DONATE_URL = os.environ.get("DONATE_URL", "") or os.environ.get("KOFI_URL", "")
+# Buy Me a Coffee (Premium vía membresía + donaciones). Vacío = desactivado.
+BMC_WEBHOOK_SECRET = os.environ.get("BMC_WEBHOOK_SECRET", "")
+BMC_MEMBERSHIP_URL = os.environ.get("BMC_MEMBERSHIP_URL", "")
+BMC_DONATE_URL = os.environ.get("BMC_DONATE_URL", "")
+DONATE_URL = os.environ.get("DONATE_URL", "") or BMC_DONATE_URL or os.environ.get("KOFI_URL", "")
 GITHUB_URL = os.environ.get("GITHUB_URL", "")
 
 if not CF_ZONE_ID or not CF_API_TOKEN:
@@ -311,7 +315,7 @@ def render_index(request: Request, lang: str):
         "base_domain": BASE_DOMAIN,
         "kofi_url": DONATE_URL,
         "github_url": GITHUB_URL,
-        "premium_enabled": bool(LS_CHECKOUT_URL),
+        "premium_enabled": bool(LS_CHECKOUT_URL or BMC_MEMBERSHIP_URL),
         "free_max": FREE_MAX_DOMAINS,
         "premium_max": PREMIUM_MAX_DOMAINS,
         "i18n_json": _json_for_script(t),
@@ -503,7 +507,7 @@ def me(authorization: str | None = Header(None)):
         "plan_status": user["plan_status"] or "",
         "plan_renews_at": user["plan_renews_at"] or "",
         "max_domains": user_max_domains(user),
-        "premium_enabled": bool(LS_CHECKOUT_URL),
+        "premium_enabled": bool(LS_CHECKOUT_URL or BMC_MEMBERSHIP_URL),
         "has_subscription": bool(user["ls_customer_id"]),
     }
 
@@ -655,12 +659,15 @@ def update(request: Request, domains: str = "", token: str = "", ip: str = ""):
     return "OK" if updated else "KO"
 
 
-# ============ BILLING (Lemon Squeezy) ============
+# ============ BILLING (Buy Me a Coffee / Lemon Squeezy) ============
 
 @app.get("/api/billing/checkout")
 def billing_checkout(plan: str = "yearly", authorization: str | None = Header(None)):
     token = authorization.replace("Bearer ", "") if authorization else None
     user = get_user_by_token(token)
+    if BMC_MEMBERSHIP_URL:
+        # La página de membresía de BMC muestra ambos precios (mensual/anual).
+        return {"url": BMC_MEMBERSHIP_URL}
     if not LS_CHECKOUT_URL:
         raise HTTPException(503, "Pagos no configurados")
     variant = LS_VARIANT_ID_MONTHLY if plan == "monthly" else LS_VARIANT_ID_YEARLY
@@ -679,6 +686,9 @@ def billing_checkout(plan: str = "yearly", authorization: str | None = Header(No
 def billing_portal(authorization: str | None = Header(None)):
     token = authorization.replace("Bearer ", "") if authorization else None
     user = get_user_by_token(token)
+    if BMC_MEMBERSHIP_URL:
+        # El supporter gestiona su membresía desde su cuenta de BMC.
+        return {"url": "https://www.buymeacoffee.com/user/account"}
     if not LS_API_KEY:
         raise HTTPException(503, "Pagos no configurados")
     customer_id = user["ls_customer_id"]
@@ -758,6 +768,81 @@ async def lemonsqueezy_webhook(request: Request):
             "UPDATE users SET plan = 'premium', plan_status = ?, ls_customer_id = ?,"
             " ls_subscription_id = ?, plan_renews_at = ? WHERE id = ?",
             (status, customer_id, sub_id, renews, user["id"]),
+        )
+        db.commit()
+
+    return {"ok": True}
+
+
+# ============ WEBHOOK Buy Me a Coffee ============
+
+def _bmc_email(data: dict) -> str:
+    """Email del supporter en el payload de BMC (varía según el evento)."""
+    for key in ("supporter_email", "email", "payer_email"):
+        if data.get(key):
+            return str(data[key]).strip().lower()
+    sup = data.get("supporter") or {}
+    return str(sup.get("email", "")).strip().lower()
+
+
+def _bmc_period_end(data: dict) -> str:
+    """Fin del periodo pagado si viene en el payload (ISO o unix ts)."""
+    for key in ("current_period_end", "next_bill_date", "ends_at", "renews_at"):
+        v = data.get(key)
+        if not v:
+            continue
+        if isinstance(v, (int, float)):
+            return datetime.fromtimestamp(v, tz=timezone.utc).isoformat()
+        return str(v)
+    return ""
+
+
+@app.post("/webhook/buymeacoffee")
+async def buymeacoffee_webhook(request: Request):
+    raw = await request.body()
+    signature = request.headers.get("x-signature-sha256", "")
+    if not signature:
+        # health check / validación de la URL por parte de BMC
+        return {"ok": True}
+    if not BMC_WEBHOOK_SECRET:
+        raise HTTPException(503, "Webhooks no configurados")
+    expected = hmac.new(BMC_WEBHOOK_SECRET.encode(), raw, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(signature, expected):
+        raise HTTPException(401, "Firma inválida")
+
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        raise HTTPException(400, "JSON inválido")
+
+    event = payload.get("type", "")
+    data = payload.get("data") or {}
+    if not event.startswith("membership."):
+        return {"ok": True}
+
+    email = _bmc_email(data)
+    if not email:
+        return {"ok": True}
+
+    if event in ("membership.started", "membership.updated"):
+        status = str(data.get("status") or "active").lower()
+        if status not in ("active", "on_trial", "past_due"):
+            status = "active"
+        renews = _bmc_period_end(data)
+    else:  # membership.cancelled / membership.paused
+        status = "cancelled"
+        renews = _bmc_period_end(data)
+
+    with get_db() as db:
+        user = db.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+        if not user:
+            # supporter sin cuenta nandns: nada que activar
+            return {"ok": True}
+        sub_id = str(data.get("subscription_id") or data.get("id") or "")
+        db.execute(
+            "UPDATE users SET plan = 'premium', plan_status = ?, ls_customer_id = ?,"
+            " ls_subscription_id = ?, plan_renews_at = ? WHERE id = ?",
+            (status, f"bmc:{email}", f"bmc:{sub_id}", renews, user["id"]),
         )
         db.commit()
 

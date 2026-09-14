@@ -32,6 +32,7 @@ ENV = {
     "LS_VARIANT_ID_YEARLY": "12345",
     "LS_VARIANT_ID_MONTHLY": "67890",
     "LS_CHECKOUT_URL": "https://store.lemonsqueezy.test/checkout/buy/abc",
+    "BMC_WEBHOOK_SECRET": "bmc-test-secret",
     "DONATE_URL": "https://store.lemonsqueezy.test/checkout/buy/donate",
     "GITHUB_URL": "https://github.com/nandezgarcia/nandns",
 }
@@ -188,6 +189,36 @@ def main():
         st, body = get("/api/me", {"Authorization": "Bearer tok123"})
         me = json.loads(body)
         check("cancelada con periodo pagado -> premium hasta ends_at", me.get("plan") == "premium", body)
+
+        print("== Webhook Buy Me a Coffee ==")
+        # volver a free primero (expirada LS)
+        st, _ = post_raw("/webhook/lemonsqueezy", payload2, {"X-Signature": sig2})
+        bmc_started = json.dumps({
+            "event_id": "evt_1", "type": "membership.started", "live_mode": False,
+            "created": 1789000000, "attempt": 1,
+            "data": {"supporter_email": "test@gmail.com", "subscription_id": "sub_bmc1",
+                     "status": "active", "current_period_end": 1790000000},
+        }).encode()
+        st, _ = post_raw("/webhook/buymeacoffee", bmc_started, {"X-Signature-Sha256": "mala"})
+        check("BMC firma inválida -> 401", st == 401, f"status={st}")
+        sig_bmc = hmac.new(b"bmc-test-secret", bmc_started, hashlib.sha256).hexdigest()
+        st, body = post_raw("/webhook/buymeacoffee", bmc_started, {"X-Signature-Sha256": sig_bmc})
+        check("BMC membership.started -> 200", st == 200, f"status={st} body={body}")
+        st, body = get("/api/me", {"Authorization": "Bearer tok123"})
+        me = json.loads(body)
+        check("BMC membership.started -> premium por email", me.get("plan") == "premium", body)
+
+        bmc_cancel = json.dumps({
+            "event_id": "evt_2", "type": "membership.cancelled", "live_mode": False,
+            "created": 1789000100, "attempt": 1,
+            "data": {"supporter_email": "test@gmail.com", "subscription_id": "sub_bmc1",
+                     "current_period_end": 4102444800},
+        }).encode()
+        sig_bmc2 = hmac.new(b"bmc-test-secret", bmc_cancel, hashlib.sha256).hexdigest()
+        st, _ = post_raw("/webhook/buymeacoffee", bmc_cancel, {"X-Signature-Sha256": sig_bmc2})
+        st, body = get("/api/me", {"Authorization": "Bearer tok123"})
+        me = json.loads(body)
+        check("BMC cancelled con periodo pagado -> sigue premium", me.get("plan") == "premium" and me.get("plan_status") == "cancelled", body)
 
         print("== /update sin token ==")
         st, body = get("/update?domains=x")
