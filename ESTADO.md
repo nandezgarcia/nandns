@@ -36,7 +36,9 @@
 7. Tests + deploy + E2E (BMC tiene "Send test event" en el dashboard de webhooks).
 
 ## Otros pendientes
-- awesome-selfhosted-data PR #2920 (en revisión, sin acción).
+- awesome-selfhosted-data: PR #2920 CERRADA sin fusionar (norma: primer release debe tener +4 meses). Release v1.0.0 creada 15/09/26 (contador iniciado → reenviar ~15/01/27). Issue de adición: GitHub API devuelve 403 "Blocked" (solo en ese repo; reintentar desde el navegador con sesión GitHub o más adelante).
+- Difusión 15/09/26: comentarios publicados (cuenta Reddit ManyAd4578, ya logueada en el navegador) en r/homelab y r/selfhosted en los hilos del cierre de DNS-O-Matic (audiencia buscando alternativa DDNS; disclosure de autor incluido). OJO técnica Reddit: composer = web components anidados (faceplate-textarea-input → shreddit-composer → reddit-rte); fill/JS synthetic se pierde — funciona: clic CDP trusted en el faceplate-textarea + Input.insertText + clic CDP en "Comentar". No clicar fuera (un clic erróneo navegó a alb.reddit.com y perdió un borrador).
+- HN: NO hay sesión en el navegador (pide login para Show HN). GitHub web tampoco. Pendiente que el usuario se loguee para: Show HN, issue awesome-selfhosted.
 - Search Console + Bing: hechos (sitemap OK).
 - PROMOCION.md: publicar difusión cuando el usuario se loguee en plataformas (HN/Reddit/PH/Menéame/X/dev.to — ninguna con sesión activa).
 - Cron diario de comprobación LS: CANCELADO de facto con el cambio a BMC (no recrear).
