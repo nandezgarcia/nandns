@@ -1,11 +1,13 @@
 # ESTADO — nandns (dns.kiokao.com) — 2026-09-14
 
-## ESTADO AL 14/09/26 — BMC OPERATIVO (backend E2E probado)
-- Página BMC: https://buymeacoffee.com/nandns (logo, descripción, web).
-- Membresía "Premium" (id 34106): $7/mes + $60/año. SIN PUBLICAR hasta conectar payout.
-- Webhook BMC "nandns" (activo): https://dns.kiokao.com/webhook/buymeacoffee — eventos membership.started/updated/cancelled/paused. Secret en .env del servidor (BMC_WEBHOOK_SECRET). E2E verificado: eventos de prueba de BMC llegan y devuelven 200 (firma OK, Cloudflare no bloquea; OJO: python-urllib UA sí es bloqueado por Cloudflare 403).
-- App: /api/billing/checkout devuelve BMC_MEMBERSHIP_URL; portal = cuenta del supporter en BMC; activación premium por MATCH de email supporter↔user. DONATE_URL = página BMC.
-- BLOQUEANTE FINAL: el usuario debe conectar el payout de Stripe (IBAN) desde el banner "Setup" del dashboard BMC. Después: publicar el nivel de membresía y todo queda live.
+## ESTADO AL 14/09/26 (cierre) — BMC 100% LIVE, COBRANDO DE VERDAD
+- Página BMC: https://buymeacoffee.com/nandns (logo, descripción, enlaces dns.kiokao.com + GitHub visibles en el perfil público).
+- Membresía "Premium" (id 341069): $7/mes + $60/año, PUBLICADA y visible en https://buymeacoffee.com/nandns/membership (200 OK, botón Join).
+- Payout: Stripe Connect onboarding COMPLETADO (reusó la cuenta Stripe de Lemon Squeezy: ES, Calle Santa María de Ordás 15, 41008 Sevilla, tel +34 645 25 23 86, DOB 02/12/1976, ciudadanía ES; Stripe Tax rechazado "Not right now"). Estado: "Instant Payout via Stripe — Connected". Payout a ING ••••1488 (SEPA). El modal "Update your social links" y el "Submit for review" quedan como templates ocultos en DOM (opacity:0) — NO son bloqueantes: los enlaces ya se guardaron (update_page 200) y la página visible solo muestra la tarjeta Stripe Connected.
+- Webhook BMC "nandns" (activo): https://dns.kiokao.com/webhook/buymeacoffee — membership.started/updated/cancelled/paused. Secret en .env del servidor. E2E verificado (test events 200, firma HMAC-SHA256 x-signature-sha256; Cloudflare no bloquea BMC, sí python-urllib UA).
+- App desplegada: /api/billing/checkout → BMC_MEMBERSHIP_URL; portal = cuenta supporter BMC; premium por MATCH email supporter↔user. Endpoint webhook live (GET da 405). Tests 49/49. Push a github.com/nandezgarcia/nandns hecho.
+- OJO WebBridge: el onboarding de Stripe Connect va en iframe cross-origin (connect-js.stripe.com): hay que usar CDP Page.createIsolatedWorld en el frame ui_layer y los botones "Agree/Continue" son <a> sin <button>; clic sintético .click() SÍ funciona; el modal de BMC necesitó CDP Input.dispatchMouseEvent (trusted). offsetParent!==null NO garantiza visible (modales con opacity:0 en DOM).
+- PENDIENTE usuario: fiscalidad — BMC no es Merchant of Record: IRPF/IVA con gestor. Los cobros ya llegan a ING ••••1488 vía Stripe.
 
 ## Decisión de pagos ACTUAL: Buy Me a Coffee (BMC)
 - 2026-08-17: Lemon Squeezy elegido → tienda NUNCA aprobada (4+ semanas, soporte sin responder a emails del 24/08 y 03/09 enviados desde Gmail del usuario).
